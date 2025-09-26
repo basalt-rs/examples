@@ -15,7 +15,6 @@ name: delivery
 
 jobs:
   all-the-langs:
-    needs: get-version
     strategy:
       matrix:
         arch: [amd64, arm64]
