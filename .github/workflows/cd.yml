@@ -21,6 +21,8 @@ jobs:
     runs-on: ${{ matrix.arch == 'amd64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     env:
       TAG: ghcr.io/${{ github.repository }}/examples/all-the-langs:latest
+      BASALT_SERVER_TAG: main
+      BASALT_WEB_TAG: dev-pr-107
     steps:
       - uses: actions/checkout@v4
       - name: Install Basalt CLI
