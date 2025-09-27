@@ -24,7 +24,7 @@ jobs:
         env:
             TAG: ghcr.io/${{ github.repository }}/all-the-langs:latest
             BASALT_SERVER_TAG: main
-            BASALT_WEB_TAG: dev-pr-107
+            BASALT_WEB_TAG: main
         steps:
             - uses: actions/checkout@v4
             - name: Setup Cargo binstall
