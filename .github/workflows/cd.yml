@@ -27,8 +27,10 @@ jobs:
             BASALT_WEB_TAG: dev-pr-107
         steps:
             - uses: actions/checkout@v4
+            - name: Setup Cargo binstall
+              run: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
             - name: Install Basalt CLI
-              run: cargo install --locked basalt-cli
+              run: cargo binstall --locked basalt-cli -y
             - name: Log in to GitHub Container Registry
               uses: docker/login-action@v3
               with:
