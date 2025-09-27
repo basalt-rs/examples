@@ -60,6 +60,6 @@ jobs:
             - name: Create and push multi-arch manifest for main
               run: |
                   docker buildx imagetools create \
-                      -t ghcr.io/${{ github.repository }}/all-the-langs:main \
-                      ghcr.io/${{ github.repository }}/all-the-langs:main-amd64 \
-                      ghcr.io/${{ github.repository }}/all-the-langs:main-arm64
+                      -t ghcr.io/${{ github.repository }}/all-the-langs:latest \
+                      ghcr.io/${{ github.repository }}/all-the-langs:latest-amd64 \
+                      ghcr.io/${{ github.repository }}/all-the-langs:latest-arm64
