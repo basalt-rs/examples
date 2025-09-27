@@ -38,7 +38,28 @@ jobs:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
             - name: Build docker image
-              run: basalt build -t ${{ env.TAG }} ./basalt.toml
+              run: basalt build -t ${{ env.TAG }}-${{ matrix.arch }} ./basalt.toml
               working-directory: all-the-langs
             - name: Push image to GHCR
-              run: docker push ${{ env.TAG }}
+              run: docker push ${{ env.TAG }}-${{ matrix.arch }}
+
+    all-the-langs-manifest:
+        needs: all-the-langs
+        runs-on: ubuntu-24.04
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - name: Log in to GHCR
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Create and push multi-arch manifest for main
+              run: |
+                  docker buildx imagetools create \
+                      -t ghcr.io/${{ github.repository }}/all-the-langs:main \
+                      ghcr.io/${{ github.repository }}/all-the-langs:main-amd64 \
+                      ghcr.io/${{ github.repository }}/all-the-langs:main-arm64
